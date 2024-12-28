@@ -35,12 +35,14 @@ esp_err_t toggle_get_handler(httpd_req_t *req)
     {
         ESP_LOGI(TAG, "Turning on");
         gpio_set_level(2, 1);
+        gpio_set_level(4, 1);
         is_led_on = true;
     }
     else
     {
         ESP_LOGI(TAG, "Turning off");
         gpio_set_level(2, 0);
+        gpio_set_level(4, 0);
         is_led_on = false;
     }
     httpd_resp_send(req, "OK", HTTPD_RESP_USE_STRLEN);
@@ -58,6 +60,9 @@ void app_main()
 {
     gpio_reset_pin(2);
     gpio_set_direction(2, GPIO_MODE_OUTPUT);
+
+    gpio_reset_pin(D);
+    gpio_set_direction(4, GPIO_MODE_OUTPUT);
 
     ESP_LOGI("main", "Hello World!");
 
